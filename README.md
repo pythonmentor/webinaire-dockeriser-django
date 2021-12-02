@@ -40,3 +40,8 @@ Pour exécuter une commande d'administration dans le container django, vous pouv
 procéder de la manière suivante:
 - Créer un super-utilisateur: `$ docker-compose run django python manage.py createsuperuser`
 - Exécuter le shell django: `$ dcoker-compose run django python manage.py shell`
+
+## Accès au site et à son admin
+
+Une fois que les containers ont démarré, vous pouvez normallement accéder au [site](http://localhost:8000) et au [site d'administration](http://localhost:8000/admin). Pour accéder au site d'administration, il faut au préalable créer un super-utilisateur avec la commande présentée
+à la section précédente.
