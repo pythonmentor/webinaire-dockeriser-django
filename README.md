@@ -11,6 +11,38 @@ de travailler avec le projet complet présenté en détails dans les chapitres 1
 à 14. Le code utilisé est celui trouvé au chapitre 13 et légèrement modifié
 pour l'occasion.
 
+## Présentation des fichiers spécifiques
+
 Les dépendances du projet python sont dans les fichiers Pipfile et Pipfile.lock.
 Le fichier requirements.txt pour l'image Docker a été généré à l'aide de la
-commande `$ pipenv lock -r > requirements.txt`
+commande `$ pipenv lock -r > requirements.txt`.
+
+Les fichiers spécifiques à Docker sont:
+- Le fichier de configuration principal de Docker-Compose: docker-compose.yml
+- Les fichiers dans compose/local/django/ qui permettent de construire l'image du container django
+
+## Démarrage des containers
+
+Avant de démarrer les containers avec docker-compose, il faut commencer par 
+construire l'image django. Pour ce faire, il est possible d'utiliser la commande
+suivante:```bash
+$ docker-compose build
+```
+
+Une fois l'image de notre projet construire, nous pouvons démarrer et stopper
+les containers avec les commandes```bash
+$ docker-compose up -d
+$ docker-compose down
+````
+
+Pour faire le ménage dans la base de données, nous pouvons ajouter l'option --volumes
+à la commande `docker-compose down`.
+
+Pour exécuter une commande d'administration dans le container django, vous pouvez
+procéder de la manière suivante:```bash
+# Exécute la commande createsuperuser dans le container
+$ docker-compose run django python manage.py createsuperuser
+
+# Exécute la commande shell dans le container
+$ dcoker-compose run django python manage.py shell
+```
