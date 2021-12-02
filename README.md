@@ -37,6 +37,6 @@ Pour faire le ménage dans la base de données, nous pouvons ajouter l'option **
 à la commande `docker-compose down`.
 
 Pour exécuter une commande d'administration dans le container django, vous pouvez
-procéder de la manière suivante:```bash
+procéder de la manière suivante:
 - Créer un super-utilisateur: `$ docker-compose run django python manage.py createsuperuser`
 - Exécuter le shell django: `$ dcoker-compose run django python manage.py shell`
