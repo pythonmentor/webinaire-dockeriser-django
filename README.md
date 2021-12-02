@@ -25,24 +25,18 @@ Les fichiers spécifiques à Docker sont:
 
 Avant de démarrer les containers avec docker-compose, il faut commencer par 
 construire l'image django. Pour ce faire, il est possible d'utiliser la commande
-suivante:```bash
-$ docker-compose build
-```
+suivante:
+- `$ docker-compose build`
 
 Une fois l'image de notre projet construire, nous pouvons démarrer et stopper
-les containers avec les commandes```bash
-$ docker-compose up -d
-$ docker-compose down
-````
+les containers avec les commandes
+- Pour le démarrage: `$ docker-compose up -d`
+- Pour l'arrêt: `$ docker-compose down`
 
-Pour faire le ménage dans la base de données, nous pouvons ajouter l'option --volumes
+Pour faire le ménage dans la base de données, nous pouvons ajouter l'option **--volumes**
 à la commande `docker-compose down`.
 
 Pour exécuter une commande d'administration dans le container django, vous pouvez
 procéder de la manière suivante:```bash
-# Exécute la commande createsuperuser dans le container
-$ docker-compose run django python manage.py createsuperuser
-
-# Exécute la commande shell dans le container
-$ dcoker-compose run django python manage.py shell
-```
+- Créer un super-utilisateur: `$ docker-compose run django python manage.py createsuperuser`
+- Exécuter le shell django: `$ dcoker-compose run django python manage.py shell`
