@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Configuration des flags d'erreurs pour bash
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+# Essaie de se connecter à la base de données Postgresql. Retourne 0 si elle
+# y arrive et 255 (-1) si elle n'y arrive pas.
+postgres_ready() {
+# Exécute le code python ci-dessous
+python << END_PYTHON
+import sys
+
+import psycopg2
+
+try:
+    psycopg2.connect(
+        dbname="${POSTGRES_DB}",
+        user="${POSTGRES_USER}",
+        password="${POSTGRES_PASSWORD}",
+        host="${POSTGRES_HOST}",
+        port="${POSTGRES_PORT}",
+    )
+except psycopg2.OperationalError:
+    sys.exit(-1)
+sys.exit(0)
+
+END_PYTHON
+}
+
+# On attend que la base de donnée soit prête et que la fonction postgres_ready
+# retourne la valeur 0 (synonyme de succès)
+until postgres_ready; do
+  >&2 echo 'Waiting for PostgreSQL to become available...'
+  sleep 1
+done
+
+>&2 echo 'PostgreSQL is available'
+
+# Exécution du fichier /start reçu en paramètre
+exec "$@"

@@ -1,0 +1,41 @@
+version: "3"
+
+services: 
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: educa_local_django
+    container_name: django
+    depends_on:
+      - postgres
+      - redis
+      - memcached
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    ports:
+      - 8000:8000
+    command: /start
+
+  postgres: 
+    image: postgres:14
+    env_file:
+      - ./.env 
+    volumes:
+     - local_postgres_data:/var/lib/postgresql/data
+
+    
+  memcached:
+    image: memcached:1.6
+
+  redis:
+    image: redis:6 
+
+  
+
+volumes:
+  local_postgres_data: {}
+
