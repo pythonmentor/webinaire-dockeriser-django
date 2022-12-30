@@ -21,7 +21,7 @@ RUN apt update && apt install --no-install-recommends -y \
 
 # Installation des dépendances python
 COPY ./requirements.txt .
-RUN pip install --no-cache-dir --no-index -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # On copie les fichiers entrypoint et start
 COPY ./compose/local/django/entrypoint /entrypoint
